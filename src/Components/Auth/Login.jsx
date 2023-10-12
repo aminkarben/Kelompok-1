@@ -28,8 +28,6 @@ const Login = () => {
                 alert(error?.response?.data?.message);
                 return;
             }
-
-            alert(error?.message);
         }
     };
 

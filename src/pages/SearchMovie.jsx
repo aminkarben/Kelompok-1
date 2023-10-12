@@ -47,7 +47,6 @@ const SearchMovies = () => {
                     return;
                 }
 
-                alert(error?.message);
                 setErrors({
                     ...errors,
                     isError: true,
@@ -64,9 +63,7 @@ const SearchMovies = () => {
 
     if (errors.isError) {
         return (
-            <h1 className="text-white text-center border rounded">
-                {errors.message}
-            </h1>
+            <h1 className="text-white text-center mt-5">{errors.message}</h1>
         );
     }
 

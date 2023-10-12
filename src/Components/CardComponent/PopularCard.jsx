@@ -39,7 +39,6 @@ const PopularCard = ({ showAllMovies }) => {
                     return;
                 }
 
-                alert(error?.message);
                 setErrors({
                     ...errors,
                     isError: true,
@@ -52,7 +51,7 @@ const PopularCard = ({ showAllMovies }) => {
 
     if (errors.isError) {
         return (
-            <h1 className="text-white text-center border rounded">
+            <h1 className="text-danger text-center fw-bold ">
                 {errors.message}
             </h1>
         );

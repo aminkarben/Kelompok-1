@@ -34,8 +34,6 @@ const NavbarComponent = () => {
                     alert(error?.response?.data?.message);
                     return;
                 }
-
-                alert(error?.message);
             }
         };
         getMe();

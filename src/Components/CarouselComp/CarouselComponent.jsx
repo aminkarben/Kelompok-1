@@ -39,7 +39,6 @@ const CarouselComponent = () => {
                     return;
                 }
 
-                alert(error?.message);
                 setErrors({
                     ...errors,
                     isError: true,
@@ -52,14 +51,12 @@ const CarouselComponent = () => {
 
     if (errors.isError) {
         return (
-            <h1 className="text-white text-center border rounded">
-                {errors.message}
-            </h1>
+            <h1 className="text-white text-center mt-5">{errors.message}</h1>
         );
     }
 
     if (movies.length === 0) {
-        return <h1 className="text-white mt-5 ms-5 ">Loading....</h1>;
+        return <h1 className="text-white mt-5 ms-5">Loading....</h1>;
     }
 
     const truncateText = (text, maxLenght) => {
