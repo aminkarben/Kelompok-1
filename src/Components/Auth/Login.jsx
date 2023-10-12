@@ -1,5 +1,7 @@
 const Login = () => {
-    return <div className="mt-5 text-white">Pages for Login</div>;
+
+    return <div>Pages for Login test</div>;
+
 };
 
 export default Login;
