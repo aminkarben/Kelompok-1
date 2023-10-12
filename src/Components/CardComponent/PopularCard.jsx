@@ -8,27 +8,58 @@ import "./popularcard.css";
 const PopularCard = ({ showAllMovies }) => {
     const [popularMovies, setPopularMovies] = useState([]);
 
+    const [errors, setErrors] = useState({
+        isError: false,
+        message: null,
+    });
+
     useEffect(() => {
         const getPopularMovies = async () => {
             try {
+                const token = localStorage.getItem("token");
                 const response = await axios.get(
                     `${import.meta.env.VITE_VERCEL_API_URL}/popular`,
                     {
                         headers: {
-                            Authorization: `Bearer ${
-                                import.meta.env.VITE_VERCEL_ACCESS_TOKEN_AUTH
-                            }`,
+                            Authorization: `Bearer ${token}`,
                         },
                     }
                 );
-                const { data } = response;
-                setPopularMovies(data?.results);
+                const { data } = response.data;
+                setPopularMovies(data);
+                setErrors({ ...errors, isError: false });
             } catch (error) {
-                console.error(error);
+                if (axios.isAxiosError(error)) {
+                    setErrors({
+                        ...errors,
+                        isError: true,
+                        message:
+                            error?.response?.data?.message || error?.message,
+                    });
+                    return;
+                }
+
+                setErrors({
+                    ...errors,
+                    isError: true,
+                    message: error?.message,
+                });
             }
         };
         getPopularMovies();
-    }, []);
+    }, [errors]);
+
+    if (errors.isError) {
+        return (
+            <h1 className="text-danger text-center fw-bold ">
+                {errors.message}
+            </h1>
+        );
+    }
+
+    if (popularMovies.length === 0) {
+        return <h1 className="text-white mt-5 ms-5">Loading....</h1>;
+    }
 
     return (
         <div>
@@ -41,7 +72,7 @@ const PopularCard = ({ showAllMovies }) => {
                             className="card text-light bg-black responsive-image"
                         >
                             <Link
-                                to={`/details/${movie?.id}?language=en-US`}
+                                to={`/details/${movie?.id}`}
                                 className="text-decoration-none text-light"
                             >
                                 <LazyLoadImage
