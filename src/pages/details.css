@@ -1,0 +1,21 @@
+.custom-blur {
+    text-shadow: 1.5px 1px black;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(2px);
+    border-radius: 2px;
+    min-height: 100vh;
+}
+
+@media only screen and (max-width: 576px) {
+    .custom-blur {
+        text-shadow: 1.5px 1px black;
+        background: rgba(0, 0, 0, 0.5);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(1px);
+        -webkit-backdrop-filter: blur(2px);
+        border-radius: 2px;
+        min-height: 100vh;
+    }
+}

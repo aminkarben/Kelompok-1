@@ -1,0 +1,48 @@
+.custom-text {
+    text-shadow: 1.5px 1px black;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(2px);
+    border-radius: 2px;
+}
+
+.responsive-image {
+    width: 13rem;
+    height: 20rem;
+}
+
+.description {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.card {
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card:hover .description {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media only screen and (max-width: 576px) {
+    .custom-text {
+        text-shadow: 1.5px 1px black;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(1px);
+        -webkit-backdrop-filter: blur(2px);
+        border-radius: 2px;
+    }
+
+    .responsive-image {
+        width: 10rem;
+        height: 18rem;
+    }
+}

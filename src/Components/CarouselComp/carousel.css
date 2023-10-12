@@ -1,0 +1,40 @@
+.h1-responsive {
+  text-shadow: 2px 2px black;
+}
+.p-responsive {
+  text-shadow: 2px 2px black;
+}
+
+.custom-btn span {
+  text-shadow: 2px 2px black;
+}
+
+@media only screen and (max-width: 576px) {
+  .h1-responsive {
+    font-size: 1rem;
+    text-shadow: 1px 1px black;
+    margin-top: 4rem;
+  }
+  .p-responsive {
+    font-size: 12px;
+
+    text-shadow: 1px 1px black;
+  }
+
+  .custom-btn span {
+    font-size: 12px;
+    text-shadow: 1px 1px black;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .h1-responsive {
+    text-shadow: 1px 1px black;
+  }
+  .p-responsive {
+    text-shadow: 1px 1px black;
+  }
+
+  .custom-btn span {
+    text-shadow: 1px 1px black;
+  }
+}
