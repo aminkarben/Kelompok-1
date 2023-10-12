@@ -9,6 +9,7 @@ const Login = () => {
             </Card>
         </Container>
     );
+
 };
 
 export default Login;

@@ -70,7 +70,12 @@ const NavbarComponent = () => {
                         </div>
                     </Form>
                     <Nav className="d-none d-sm-flex ml-auto gap-2">
-                        <Button variant="outline-danger" className="mr-2">
+                        <Button
+                            as={Link}
+                            to="/login"
+                            variant="outline-danger"
+                            className="mr-2"
+                        >
                             Login
                         </Button>
                         <Button variant="danger" className="">
