@@ -8,31 +8,58 @@ const CarouselComponent = () => {
     const [movies, setMovies] = useState([]);
     const [selectId, setSelectId] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [errors, setErrors] = useState({
+        isError: false,
+        message: null,
+    });
 
     useEffect(() => {
         const getPlayingMovies = async () => {
             try {
+                const token = localStorage.getItem("token");
                 const response = await axios.get(
-                    `${import.meta.env.VITE_VERCEL_API_URL}/now_playing`,
+                    `${import.meta.env.VITE_VERCEL_API_URL}/popular`,
                     {
                         headers: {
-                            Authorization: `Bearer ${
-                                import.meta.env.VITE_VERCEL_ACCESS_TOKEN_AUTH
-                            }`,
+                            Authorization: `Bearer ${token}`,
                         },
                     }
                 );
-                const { data } = response;
-                setMovies(data?.results);
+                const { data } = response.data;
+                setMovies(data);
+                setErrors({ ...errors, isError: false });
             } catch (error) {
-                console.error(error);
+                if (axios.isAxiosError(error)) {
+                    setErrors({
+                        ...errors,
+                        isError: true,
+                        message:
+                            error?.response?.data?.message || error?.message,
+                    });
+                    return;
+                }
+
+                alert(error?.message);
+                setErrors({
+                    ...errors,
+                    isError: true,
+                    message: error?.message,
+                });
             }
         };
         getPlayingMovies();
-    }, []);
+    }, [errors]);
+
+    if (errors.isError) {
+        return (
+            <h1 className="text-white text-center border rounded">
+                {errors.message}
+            </h1>
+        );
+    }
 
     if (movies.length === 0) {
-        return <div>Loading...</div>;
+        return <h1 className="text-white mt-5 ms-5 ">Loading....</h1>;
     }
 
     const truncateText = (text, maxLenght) => {

@@ -7,9 +7,39 @@ import {
     Button,
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import "./navbar.css";
 
 const NavbarComponent = () => {
     const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const getMe = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const response = await axios.get(
+                    `${import.meta.env.VITE_VERCEL_AUTH}/me`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                const { data } = response.data;
+                setUser(data);
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    alert(error?.response?.data?.message);
+                    return;
+                }
+
+                alert(error?.message);
+            }
+        };
+        getMe();
+    }, []);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -23,6 +53,11 @@ const NavbarComponent = () => {
         const searchUrl = `/search?query=${searchQuery}&include_adult=false&page=1`;
 
         navigate(searchUrl);
+    };
+
+    const logout = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
     };
 
     return (
@@ -52,9 +87,22 @@ const NavbarComponent = () => {
                     className="bg-danger text-white"
                 />
                 <Navbar.Collapse id="navbarScroll">
+                    <Nav
+                        id="responsiveNavbar"
+                        className="d-sm-none d-flex align-items-center mb-2"
+                    >
+                        {user && (
+                            <div className="d-flex gap-2 justify-content-between text-white">
+                                <p className="mb-2 fs-4">Hello {user?.name}</p>
+                                <Button onClick={logout} variant="danger">
+                                    Logout
+                                </Button>
+                            </div>
+                        )}
+                    </Nav>
                     <Form
                         onSubmit={handleSearch}
-                        className="d-flex flex-grow-1 me-2"
+                        className="d-flex flex-column m-2 flex-grow-1"
                     >
                         <div className="d-flex flex-grow-1 input-group">
                             <FormControl
@@ -69,18 +117,28 @@ const NavbarComponent = () => {
                             </Button>
                         </div>
                     </Form>
-                    <Nav className="d-none d-sm-flex ml-auto gap-2">
-                        <Button
-                            as={Link}
-                            to="/login"
-                            variant="outline-danger"
-                            className="mr-2"
-                        >
-                            Login
-                        </Button>
-                        <Button variant="danger" className="">
-                            Register
-                        </Button>
+                    <Nav className="d-none d-sm-flex ml-auto gap-2 text-white">
+                        {user ? (
+                            <div className="d-flex gap-2 justify-content-center align-items-center text-white">
+                                Hello {user?.name}
+                                <Button
+                                    onClick={logout}
+                                    variant="danger"
+                                    className="mr-2"
+                                >
+                                    Logout
+                                </Button>
+                            </div>
+                        ) : (
+                            <Button
+                                as={Link}
+                                to="/login"
+                                variant="outline-danger"
+                                className="mr-2"
+                            >
+                                Login
+                            </Button>
+                        )}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
