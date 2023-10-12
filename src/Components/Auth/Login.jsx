@@ -1,5 +1,14 @@
+import { Card, Container } from "react-bootstrap";
+
 const Login = () => {
-    return <div>Pages for Login test</div>;
+    return (
+        <Container>
+            <Card>
+                <h1>Pages for Login</h1>
+                <p>test</p>
+            </Card>
+        </Container>
+    );
 };
 
 export default Login;
