@@ -75,7 +75,14 @@ const Details = () => {
                                 src={`${
                                     import.meta.env.VITE_VERCEL_IMG_URL_ORIGINAL
                                 }${detailsMovie?.poster_path}`}
-                                className="rounded object-cover "
+                                className="rounded"
+                                style={{
+                                    objectFit: "cover",
+                                    background: "#EEEEEE",
+                                }}
+                                onError={(e) => {
+                                    e.target.src = "/Placeholder.svg";
+                                }}
                             />
                         </div>
                         <div className="col-md-8 text-white ">
@@ -217,11 +224,6 @@ const Details = () => {
                         show={showModal}
                     />
                 )}
-            </div>
-            <div className="container-fluid ">
-                <h1 className="fw-bold fs-1 mx-auto text-light text-center">
-                    Reviews
-                </h1>
             </div>
         </>
     );
