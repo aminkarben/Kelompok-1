@@ -52,7 +52,14 @@ const PopularCard = ({ showAllMovies }) => {
                                         import.meta.env
                                             .VITE_VERCEL_IMG_URL_ORIGINAL
                                     }${movie.poster_path}`}
-                                    className="rounded object-cover"
+                                    className="rounded"
+                                    style={{
+                                        objectFit: "cover",
+                                        background: "#EEEEEE",
+                                    }}
+                                    onError={(e) => {
+                                        e.target.src = "/Placeholder.svg";
+                                    }}
                                 />
                                 <div
                                     key={movie?.id}

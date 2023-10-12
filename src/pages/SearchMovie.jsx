@@ -73,12 +73,19 @@ const SearchMovies = () => {
                         >
                             <LazyLoadImage
                                 alt={movie.title}
-                                height={"100%"}
                                 width={"100%"}
+                                height={"100%"}
                                 src={`${
                                     import.meta.env.VITE_VERCEL_IMG_URL_ORIGINAL
                                 }${movie.poster_path}`}
-                                className="rounded img-fluid"
+                                className="rounded"
+                                style={{
+                                    objectFit: "cover",
+                                    background: "#EEEEEE",
+                                }}
+                                onError={(e) => {
+                                    e.target.src = "/Placeholder.svg";
+                                }}
                             />
                             <div
                                 key={movie?.id}
@@ -99,11 +106,6 @@ const SearchMovies = () => {
                                     <h5 className="card-title m-0 ">
                                         {movie.title}
                                     </h5>
-                                    {/* <p className="card-text ">
-                                        <small>
-                                            Release Date : {movie.release_date}
-                                        </small>
-                                    </p> */}
                                 </div>
                             </div>
                         </Link>
