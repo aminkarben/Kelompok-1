@@ -7,53 +7,68 @@ import "../Components/CardComponent/popularcard.css";
 const SearchMovies = () => {
     const [searchedMovies, setSearchedMovies] = useState([]);
     const [searchParams] = useSearchParams();
+    const [errors, setErrors] = useState({
+        isError: false,
+        message: null,
+    });
 
     const queryValue = searchParams.get("query");
     const pageValue = searchParams.get("page");
     const adultValue = searchParams.get("adult");
 
     useEffect(() => {
-        try {
-            if (queryValue) {
-                axios
-                    .get(
+        const searchData = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                if (queryValue) {
+                    const response = await axios.get(
                         `${
                             import.meta.env.VITE_VERCEL_SEARCH_URL
                         }?query=${queryValue}&include_adult=${adultValue}&page=${pageValue}`,
                         {
                             headers: {
-                                Authorization: `Bearer ${
-                                    import.meta.env
-                                        .VITE_VERCEL_ACCESS_TOKEN_AUTH
-                                }`,
+                                Authorization: `Bearer ${token}`,
                             },
                         }
-                    )
-                    .then((response) => {
-                        const data = response.data;
-                        setSearchedMovies(data.results);
-                    })
-                    .catch((error) => {
-                        console.error(error);
+                    );
+
+                    const data = response.data;
+                    setSearchedMovies(data.data);
+                    setErrors({ ...errors, isError: false });
+                }
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    setErrors({
+                        ...errors,
+                        isError: true,
+                        message:
+                            error?.response?.data?.message || error?.message,
                     });
+                    return;
+                }
+
+                setErrors({
+                    ...errors,
+                    isError: true,
+                    message: error?.message,
+                });
             }
-        } catch (error) {
-            console.error(error);
-        }
-    }, [queryValue, pageValue, adultValue]);
+        };
+        searchData();
+    }, [queryValue, pageValue, adultValue, errors]);
 
     const currentPage = parseInt(pageValue, 10) || 1; // ubah ke angka bilangan bulat dan defaultnya 1 jika kosong
     const nextPage = currentPage + 1;
     const prevPage = currentPage - 1;
 
-    if (searchedMovies.length === 0) {
+    if (errors.isError) {
         return (
-            <div className="mt-5 mx-5 text-light">
-                <h1>
-                    <q>{queryValue}</q> is Not Found
-                </h1>
-            </div>
+            <h1 className="text-white text-center mt-5">{errors.message}</h1>
         );
+    }
+
+    if (searchedMovies.length === 0) {
+        return <h1 className="mt-5 ms-5 text-white">Loading....</h1>;
     }
 
     return (

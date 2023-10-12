@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import axios from "axios";
@@ -13,33 +13,26 @@ const Details = () => {
     const [selectId, setSelectId] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
-    const [searchParams] = useSearchParams();
-
-    const languageValue = searchParams.get("language");
-
     useEffect(() => {
         const getDetailMovie = async () => {
             try {
+                const token = localStorage.getItem("token");
                 const response = await axios.get(
-                    `${
-                        import.meta.env.VITE_VERCEL_API_URL
-                    }/${id}?language=${languageValue}`,
+                    `${import.meta.env.VITE_VERCEL_API_URL}/${id}`,
                     {
                         headers: {
-                            Authorization: `Bearer ${
-                                import.meta.env.VITE_VERCEL_ACCESS_TOKEN_AUTH
-                            }`,
+                            Authorization: `Bearer ${token}`,
                         },
                     }
                 );
-                const { data } = response;
+                const { data } = response.data;
                 setDetailsMovie(data);
             } catch (error) {
                 console.error(error);
             }
         };
         getDetailMovie();
-    }, [id, languageValue]);
+    }, [id]);
     const handleShowModal = (movieId) => {
         setSelectId(movieId);
         setShowModal(true);
