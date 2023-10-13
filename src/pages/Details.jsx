@@ -14,7 +14,7 @@ const Details = () => {
     const [selectId, setSelectId] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
-    const language = searchParams.get("language");
+    const languageValue = searchParams.get("language") || "en-US";
 
     useEffect(() => {
         const getDetailMovie = async () => {
@@ -23,7 +23,7 @@ const Details = () => {
                 const response = await axios.get(
                     `${
                         import.meta.env.VITE_VERCEL_API_URL
-                    }/${id}?language=${language}`,
+                    }/${id}?language=${languageValue}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -37,7 +37,7 @@ const Details = () => {
             }
         };
         getDetailMovie();
-    }, [id]);
+    }, [id, languageValue]);
     const handleShowModal = (movieId) => {
         setSelectId(movieId);
         setShowModal(true);
