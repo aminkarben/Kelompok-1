@@ -8,7 +8,7 @@
     min-height: 100vh;
 }
 
-@media only screen and (max-width: 576px) {
+@media (max-width: 576px) {
     .custom-blur {
         text-shadow: 1.5px 1px black;
         background: rgba(0, 0, 0, 0.5);

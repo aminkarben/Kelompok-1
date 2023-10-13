@@ -18,20 +18,20 @@
     transition: opacity 0.3s, transform 0.3s;
 }
 
-.card {
+.custom-anim {
     transition: transform 0.3s;
 }
 
-.card:hover {
+.custom-anim:hover {
     transform: translateY(-10px);
 }
 
-.card:hover .description {
+.custom-anim:hover .description {
     opacity: 1;
     transform: translateY(0);
 }
 
-@media only screen and (max-width: 576px) {
+@media (max-width: 576px) {
     .custom-text {
         text-shadow: 1.5px 1px black;
         background: rgba(255, 255, 255, 0.15);
