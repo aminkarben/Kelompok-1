@@ -31,7 +31,7 @@
     transform: translateY(0);
 }
 
-@media (max-width: 576px) {
+@media (max-width: 575px) {
     .custom-text {
         text-shadow: 1.5px 1px black;
         background: rgba(255, 255, 255, 0.15);
