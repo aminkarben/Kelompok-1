@@ -55,7 +55,7 @@ const NavbarComponent = () => {
 
     const logout = () => {
         localStorage.removeItem("token");
-        navigate("/login");
+        window.location.replace("/login");
     };
 
     return (

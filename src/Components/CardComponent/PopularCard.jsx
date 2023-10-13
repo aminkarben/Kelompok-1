@@ -72,7 +72,7 @@ const PopularCard = ({ showAllMovies }) => {
                             className="card text-light bg-black responsive-image custom-anim"
                         >
                             <Link
-                                to={`/details/${movie?.id}`}
+                                to={`/details/${movie?.id}?language=en-US`}
                                 className="text-decoration-none text-light"
                             >
                                 <LazyLoadImage
