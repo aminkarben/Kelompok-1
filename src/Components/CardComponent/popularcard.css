@@ -18,15 +18,15 @@
     transition: opacity 0.3s, transform 0.3s;
 }
 
-.card {
+.custom-anim {
     transition: transform 0.3s;
 }
 
-.card:hover {
+.custom-anim:hover {
     transform: translateY(-10px);
 }
 
-.card:hover .description {
+.custom-anim:hover .description {
     opacity: 1;
     transform: translateY(0);
 }

@@ -80,7 +80,7 @@ const SearchMovies = () => {
                 {searchedMovies.map((movie) => (
                     <div
                         key={movie?.id}
-                        className="card text-light bg-dark responsive-image"
+                        className="card text-light bg-dark responsive-image custom-anim"
                     >
                         <Link
                             to={`/details/${movie.id}?language=en-US`}
