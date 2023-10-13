@@ -69,7 +69,7 @@ const PopularCard = ({ showAllMovies }) => {
                     .map((movie) => (
                         <div
                             key={movie?.id}
-                            className="card text-light bg-black responsive-image"
+                            className="card text-light bg-black responsive-image custom-anim"
                         >
                             <Link
                                 to={`/details/${movie?.id}`}
