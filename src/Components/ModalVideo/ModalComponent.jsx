@@ -15,20 +15,20 @@ const ModalComponent = ({ movieId, onClose, show }) => {
     useEffect(() => {
         const getVideoData = async () => {
             try {
+                const token = localStorage.getItem("token");
                 const response = await axios.get(
-                    `https://api.themoviedb.org/3/movie/${movieId}/videos`,
+                    `${import.meta.env.VITE_VERCEL_API_URL}/${movieId}`,
                     {
                         headers: {
-                            Authorization: `Bearer ${
-                                import.meta.env.VITE_VERCEL_ACCESS_TOKEN_AUTH
-                            }`,
+                            Authorization: `Bearer ${token}`,
                         },
                     }
                 );
-                const { data } = response;
+                const { data } = response.data;
+                console.log(data);
 
-                if (data?.results) {
-                    const trailer = data?.results.find(
+                if (data?.videos) {
+                    const trailer = data?.videos.find(
                         (video) =>
                             video.type === "Trailer" && video.site === "YouTube"
                     );
@@ -37,7 +37,7 @@ const ModalComponent = ({ movieId, onClose, show }) => {
                         const trailerKey = trailer.key;
                         setVideoData(trailerKey);
                     } else {
-                        const firstVideo = data.results.find(
+                        const firstVideo = data.videos.find(
                             (video) => video.site === "YouTube"
                         );
                         if (firstVideo) {
