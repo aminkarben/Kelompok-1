@@ -63,7 +63,7 @@ const Login = () => {
               </Button>
             </Form>
             <small>
-              <Link to="/register" className="fw-semibold">
+              <Link to="/register" className="fw-semibold text-decoration-none">
                 belum punya akun?
               </Link>
             </small>

@@ -1,5 +1,6 @@
 import { Button, Form, Container, Card } from "react-bootstrap";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ const Register = () => {
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>First Name</Form.Label>
                 <Form.Control
-                  type="email"
+                  type="text"
                   placeholder="Enter Your First Name"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
@@ -32,7 +33,7 @@ const Register = () => {
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control
-                  type="email"
+                  type="text"
                   placeholder="Enter Your Last Name"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
@@ -71,6 +72,11 @@ const Register = () => {
               <Button className="w-100" variant="danger" type="submit">
                 Register
               </Button>
+              <small>
+                <Link to="/login" className="fw-semibold text-decoration-none ">
+                  Sudah punya akun? masuk sekarang
+                </Link>
+              </small>
             </Form>
           </Card.Body>
         </Card>
