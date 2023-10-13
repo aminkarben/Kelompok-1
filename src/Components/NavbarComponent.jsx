@@ -31,13 +31,13 @@ const NavbarComponent = () => {
                 setUser(data);
             } catch (error) {
                 if (axios.isAxiosError(error)) {
-                    alert(error?.response?.data?.message);
+                    console.log(error?.response?.data?.message);
                     return;
                 }
             }
         };
         getMe();
-    }, []);
+    }, [user]);
 
     const handleSearch = (e) => {
         e.preventDefault();
