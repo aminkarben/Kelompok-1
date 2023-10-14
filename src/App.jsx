@@ -8,6 +8,7 @@ import Error from "./pages/Error";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
 import Profile from "./pages/Profile";
+import TestLoginUI from "./Components/Auth/TestLoginUI";
 function App() {
     return (
         <BrowserRouter>
@@ -21,6 +22,7 @@ function App() {
                 {/* authentication */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/tesLogin" element={<TestLoginUI />} />
 
                 {/* handle error path */}
                 <Route path="*" element={<Error />} />
