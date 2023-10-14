@@ -7,6 +7,7 @@ import SearchMovie from "./pages/SearchMovie";
 import Error from "./pages/Error";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
+import Profile from "./pages/Profile";
 function App() {
     return (
         <BrowserRouter>
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/details/:id" element={<Details />} />
                 <Route path="/search" element={<SearchMovie />} />
+                <Route path="/profile" element={<Profile />} />
 
                 {/* authentication */}
                 <Route path="/login" element={<Login />} />
