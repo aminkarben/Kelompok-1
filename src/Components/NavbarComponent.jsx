@@ -81,78 +81,83 @@ const NavbarComponent = () => {
                     </Link>
                 </Navbar.Brand>
 
-                <Navbar.Toggle
-                    aria-controls="navbarScroll"
-                    className="bg-danger text-white"
-                />
                 {user && (
-                    <Navbar.Collapse id="navbarScroll">
-                        <Nav
-                            id="responsiveNavbar"
-                            className="d-sm-none d-flex align-items-center mb-2"
-                        >
-                            {user && (
-                                <div className="d-flex gap-2 justify-content-between align-items-center text-white">
-                                    <p className=" fs-6 ">
+                    <>
+                        <Navbar.Toggle
+                            aria-controls="navbarScroll"
+                            className="bg-danger text-white"
+                        />
+                        <Navbar.Collapse id="navbarScroll">
+                            <Nav
+                                id="responsiveNavbar"
+                                className="d-sm-none d-flex align-items-center mb-2"
+                            >
+                                {user && (
+                                    <div className="d-flex gap-2 justify-content-between align-items-center text-white">
+                                        <p className=" fs-6 ">
+                                            <Link
+                                                to={"/profile"}
+                                                className="text-decoration-none text-white fw-semibold fs-6 "
+                                            >
+                                                Hello {user?.name}
+                                            </Link>
+                                        </p>
+                                        <Button
+                                            onClick={logout}
+                                            variant="danger"
+                                        >
+                                            Logout
+                                        </Button>
+                                    </div>
+                                )}
+                            </Nav>
+                            <Form
+                                onSubmit={handleSearch}
+                                className="d-flex flex-column m-2 flex-grow-1"
+                            >
+                                <div className="d-flex flex-grow-1 input-group">
+                                    <FormControl
+                                        type="search"
+                                        placeholder="What do you want to watch?"
+                                        className="mr-4 flex-1 bg-white bg-opacity-25 text-light border-danger text-danger"
+                                        aria-label="Search"
+                                        name="search"
+                                    />
+                                    <Button type="submit" variant="danger">
+                                        Search
+                                    </Button>
+                                </div>
+                            </Form>
+                            <Nav className="d-none d-sm-flex ml-auto gap-2 text-white">
+                                {user ? (
+                                    <div className="d-flex gap-2 justify-content-center align-items-center text-white">
                                         <Link
                                             to={"/profile"}
-                                            className="text-decoration-none text-white fw-semibold fs-6 "
+                                            className="text-decoration-none text-white fw-semibold fs-6"
                                         >
                                             Hello {user?.name}
                                         </Link>
-                                    </p>
-                                    <Button onClick={logout} variant="danger">
-                                        Logout
-                                    </Button>
-                                </div>
-                            )}
-                        </Nav>
-                        <Form
-                            onSubmit={handleSearch}
-                            className="d-flex flex-column m-2 flex-grow-1"
-                        >
-                            <div className="d-flex flex-grow-1 input-group">
-                                <FormControl
-                                    type="search"
-                                    placeholder="What do you want to watch?"
-                                    className="mr-4 flex-1 bg-white bg-opacity-25 text-light border-danger text-danger"
-                                    aria-label="Search"
-                                    name="search"
-                                />
-                                <Button type="submit" variant="danger">
-                                    Search
-                                </Button>
-                            </div>
-                        </Form>
-                        <Nav className="d-none d-sm-flex ml-auto gap-2 text-white">
-                            {user ? (
-                                <div className="d-flex gap-2 justify-content-center align-items-center text-white">
-                                    <Link
-                                        to={"/profile"}
-                                        className="text-decoration-none text-white fw-semibold fs-6"
-                                    >
-                                        Hello {user?.name}
-                                    </Link>
+                                        <Button
+                                            onClick={logout}
+                                            variant="danger"
+                                            className="mr-2"
+                                        >
+                                            Logout
+                                        </Button>
+                                    </div>
+                                ) : (
                                     <Button
-                                        onClick={logout}
-                                        variant="danger"
+                                        as={Link}
+                                        to="/login"
+                                        variant="outline-danger"
                                         className="mr-2"
                                     >
-                                        Logout
+                                        Login
                                     </Button>
-                                </div>
-                            ) : (
-                                <Button
-                                    as={Link}
-                                    to="/login"
-                                    variant="outline-danger"
-                                    className="mr-2"
-                                >
-                                    Login
-                                </Button>
-                            )}
-                        </Nav>
-                    </Navbar.Collapse>
+                                )}
+                            </Nav>
+                        </Navbar.Collapse>
+                    </>
                 )}
             </Container>
         </Navbar>

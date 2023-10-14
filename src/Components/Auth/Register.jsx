@@ -38,6 +38,15 @@ const Register = () => {
             });
         };
 
+        const validatePassword = () => {
+            swal.fire({
+                title: "Error!",
+                text: "Password dan Confirm Password harus sama.",
+                icon: "error",
+                confirmButtonText: "OK",
+            });
+        };
+
         const customError = (error) => {
             swal.fire({
                 title: "Failed!",
@@ -49,7 +58,7 @@ const Register = () => {
 
         try {
             if (password !== confirmPassword) {
-                alert("Password dan Confirm Password harus sama.");
+                validatePassword();
                 return;
             }
 
@@ -94,7 +103,7 @@ const Register = () => {
 
     return (
         <div className="d-flex min-vh-100 justify-content-center align-items-center text-black">
-            <Container className="p-4 w-75">
+            <Container className="p-4 w-100">
                 <Card>
                     <Card.Header>Register an Account</Card.Header>
                     <Card.Body>
