@@ -1,4 +1,3 @@
-import { Button, Form, Container, Card } from "react-bootstrap";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -103,102 +102,129 @@ const Register = () => {
 
     return (
         <div className="d-flex min-vh-100 justify-content-center align-items-center text-black">
-            <Container className="p-4 w-100">
-                <Card>
-                    <Card.Header>Register an Account</Card.Header>
-                    <Card.Body>
-                        <Form onSubmit={registerAccount}>
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicFirstName"
-                            >
-                                <Form.Label>First Name</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter Your First Name"
-                                    value={firstName}
-                                    onChange={(e) =>
-                                        setFirstName(e.target.value)
-                                    }
-                                />
-                            </Form.Group>
+            <div
+                className="mt-5 px-4 py-5 px-md-5 text-center text-lg-start rounded mx-2"
+                style={{ backgroundColor: "hsl(0, 0%, 96%)" }}
+            >
+                <div className="container">
+                    <div className="row gx-lg-5 align-items-center">
+                        <div className="col-lg-6 mb-2 mb-lg-0">
+                            <h1 className="fs-1 my-4 display-3 fw-bold ls-tight">
+                                Sign Up Now! <br />
+                                <span className="text-danger fs-4">
+                                    Sign up to Access our Movie Collection
+                                </span>
+                            </h1>
+                            <p className="mb-4 text-danger opacity-50 fw-semibold">
+                                By signing up, you&apos;ll be able to explore
+                                thousands of movies and receive personalized
+                                recommendations tailored to your preferences.
+                            </p>
+                        </div>
 
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicLastName"
-                            >
-                                <Form.Label>Last Name</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter Your Last Name"
-                                    value={lastName}
-                                    onChange={(e) =>
-                                        setLastName(e.target.value)
-                                    }
-                                />
-                            </Form.Group>
+                        <div className="col-lg-6 mb-5 mb-lg-0">
+                            <div className="card">
+                                <div className="card-body py-5 px-md-5">
+                                    <form onSubmit={registerAccount}>
+                                        <div className="row">
+                                            <div className="col-md-6 mb-4">
+                                                <div className="form-outline">
+                                                    <input
+                                                        type="text"
+                                                        id="form3Example1"
+                                                        className="form-control"
+                                                        placeholder="First Name"
+                                                        value={firstName}
+                                                        onChange={(e) =>
+                                                            setFirstName(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6 mb-4">
+                                                <div className="form-outline">
+                                                    <input
+                                                        type="text"
+                                                        id="form3Example2"
+                                                        className="form-control"
+                                                        placeholder="Last Name"
+                                                        value={lastName}
+                                                        onChange={(e) =>
+                                                            setLastName(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicEmail"
-                            >
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    placeholder="Enter Your email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </Form.Group>
+                                        <div className="form-outline mb-4">
+                                            <input
+                                                type="email"
+                                                id="form3Example3"
+                                                className="form-control"
+                                                placeholder="Email address"
+                                                value={email}
+                                                onChange={(e) =>
+                                                    setEmail(e.target.value)
+                                                }
+                                            />
+                                        </div>
+                                        <div className="form-outline mb-4">
+                                            <input
+                                                type="password"
+                                                id="form3Example4"
+                                                className="form-control"
+                                                placeholder="Password"
+                                                value={password}
+                                                onChange={(e) =>
+                                                    setPassword(e.target.value)
+                                                }
+                                            />
+                                        </div>
+                                        <div className="form-outline mb-4">
+                                            <input
+                                                type="password"
+                                                id="form3Example4"
+                                                className="form-control"
+                                                placeholder="Confirm Password"
+                                                value={confirmPassword}
+                                                onChange={(e) =>
+                                                    setConfirmPassword(
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </div>
 
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicPassword"
-                            >
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Password"
-                                    value={password}
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                />
-                            </Form.Group>
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicConfirmPassword"
-                            >
-                                <Form.Label>Confirm Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Confirm Password"
-                                    value={confirmPassword}
-                                    onChange={(e) =>
-                                        setConfirmPassword(e.target.value)
-                                    }
-                                />
-                            </Form.Group>
+                                        <div className="container w-full text-center">
+                                            <button
+                                                type="submit"
+                                                className="btn btn-danger btn-block mb-4 w-75"
+                                            >
+                                                Sign Up
+                                            </button>
+                                        </div>
 
-                            <Button
-                                className="w-100"
-                                variant="danger"
-                                type="submit"
-                            >
-                                Register
-                            </Button>
-                            <small>
-                                <Link
-                                    to="/login"
-                                    className="fw-semibold text-decoration-none "
-                                >
-                                    Sudah punya akun? masuk sekarang
-                                </Link>
-                            </small>
-                        </Form>
-                    </Card.Body>
-                </Card>
-            </Container>
+                                        <div className="mb-3 fw-bold">
+                                            already have an account?{" "}
+                                            <Link
+                                                to="/login"
+                                                className="text-primary-50 fw-bold text-decoration-none"
+                                            >
+                                                Sign In
+                                            </Link>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
