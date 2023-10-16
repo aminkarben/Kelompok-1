@@ -193,6 +193,8 @@ const Login = () => {
                           <hr />
                         </div>
                       </div>
+
+                    {/* testing, nanti aku ubah lagi */}
                       {/* <button
                         type="button"
                         className="btn btn-link btn-floating mx-1"
@@ -205,6 +207,7 @@ const Login = () => {
                           }}
                         />
                       </button> */}
+
                       <button
                         type="button"
                         className="btn btn-link btn-floating mx-1"
