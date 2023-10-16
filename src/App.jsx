@@ -11,7 +11,7 @@ import Profile from "./pages/Profile";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 function App() {
   return (
-    <GoogleOAuthProvider clientId="{import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}">
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}>
       <BrowserRouter>
         <NavbarComponent />
         <Routes>
