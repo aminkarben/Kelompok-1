@@ -8,26 +8,29 @@ import Error from "./pages/Error";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
 import Profile from "./pages/Profile";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 function App() {
-    return (
-        <BrowserRouter>
-            <NavbarComponent />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/details/:id" element={<Details />} />
-                <Route path="/search" element={<SearchMovie />} />
-                <Route path="/profile" element={<Profile />} />
+  return (
+    <GoogleOAuthProvider clientId="{import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}">
+      <BrowserRouter>
+        <NavbarComponent />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/details/:id" element={<Details />} />
+          <Route path="/search" element={<SearchMovie />} />
+          <Route path="/profile" element={<Profile />} />
 
-                {/* authentication */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+          {/* authentication */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-                {/* handle error path */}
-                <Route path="*" element={<Error />} />
-            </Routes>
-            <Footer />
-        </BrowserRouter>
-    );
+          {/* handle error path */}
+          <Route path="*" element={<Error />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </GoogleOAuthProvider>
+  );
 }
 
 export default App;
