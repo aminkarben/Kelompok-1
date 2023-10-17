@@ -5,6 +5,7 @@ import {
     Form,
     FormControl,
     Button,
+    Dropdown,
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -88,62 +89,128 @@ const NavbarComponent = () => {
                             className="bg-danger text-white"
                         />
                         <Navbar.Collapse id="navbarScroll">
-                            <Nav
-                                id="responsiveNavbar"
-                                className="d-sm-none d-flex align-items-center mb-2"
-                            >
-                                {user && (
-                                    <div className="d-flex gap-2 justify-content-between align-items-center text-white">
-                                        <p className=" fs-6 ">
-                                            <Link
-                                                to={"/profile"}
-                                                className="text-decoration-none text-white fw-semibold fs-6 "
-                                            >
-                                                Hello {user?.name}
-                                            </Link>
-                                        </p>
-                                        <Button
-                                            onClick={logout}
-                                            variant="danger"
-                                        >
-                                            Logout
-                                        </Button>
-                                    </div>
-                                )}
-                            </Nav>
                             <Form
                                 onSubmit={handleSearch}
-                                className="d-flex flex-column m-2 flex-grow-1"
+                                className="d-flex flex-column m-2 flex-grow-1 justify-content-center"
                             >
-                                <div className="d-flex flex-grow-1 input-group">
-                                    <FormControl
-                                        type="search"
-                                        placeholder="What do you want to watch?"
-                                        className="mr-4 flex-1 bg-white bg-opacity-25 text-light border-danger text-danger"
-                                        aria-label="Search"
-                                        name="search"
-                                    />
-                                    <Button type="submit" variant="danger">
-                                        Search
-                                    </Button>
+                                <div className="d-flex flex-grow-1 gap-2 align-items-center ">
+                                    {user && (
+                                        <div className="d-sm-none align-items-center justify-content-start mb-2">
+                                            <Dropdown>
+                                                <Dropdown.Toggle
+                                                    variant="danger"
+                                                    id="dropdown-basic"
+                                                >
+                                                    <img
+                                                        src="/user.png"
+                                                        alt={user?.name}
+                                                        style={{
+                                                            width: "25px",
+                                                        }}
+                                                    />
+                                                </Dropdown.Toggle>
+
+                                                <Dropdown.Menu
+                                                    id="dropdown-button-drop-start"
+                                                    drop="start"
+                                                >
+                                                    <Dropdown.Item>
+                                                        Hello {user?.name},
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item
+                                                        as={Link}
+                                                        to="/profile"
+                                                    >
+                                                        Profile
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item
+                                                        as={Button}
+                                                        onClick={logout}
+                                                        variant="danger"
+                                                        style={{
+                                                            backgroundColor:
+                                                                "red",
+                                                            color: "white",
+                                                            fontWeight:
+                                                                "semi-bold",
+                                                        }}
+                                                    >
+                                                        Log Out
+                                                    </Dropdown.Item>
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
+                                    )}
+
+                                    <div className="input-group">
+                                        <FormControl
+                                            type="search"
+                                            placeholder="What do you want to watch?"
+                                            className="mr-2 flex-1 bg-white bg-opacity-25 text-danger fw-semibold border-danger text-danger"
+                                            aria-label="Search"
+                                            name="search"
+                                        />
+                                        <Button type="submit" variant="danger">
+                                            Search
+                                        </Button>
+                                    </div>
                                 </div>
                             </Form>
+                            <Nav
+                                id="responsiveNavbar"
+                                className="d-sm-none align-items-center justify-content-start mb-2"
+                            ></Nav>
+
                             <Nav className="d-none d-sm-flex ml-auto gap-2 text-white">
                                 {user ? (
-                                    <div className="d-flex gap-2 justify-content-center align-items-center text-white">
-                                        <Link
-                                            to={"/profile"}
-                                            className="text-decoration-none text-white fw-semibold fs-6"
+                                    <div className="d-flex gap-2 justify-content-start align-items-center text-white">
+                                        <Dropdown
+                                            id="dropdown-button-drop-start"
+                                            drop="start"
                                         >
-                                            Hello {user?.name}
-                                        </Link>
-                                        <Button
-                                            onClick={logout}
-                                            variant="danger"
-                                            className="mr-2"
-                                        >
-                                            Logout
-                                        </Button>
+                                            <Dropdown.Toggle variant="danger">
+                                                <img
+                                                    src="/user.png"
+                                                    alt={user?.name}
+                                                    style={{
+                                                        width: "26px",
+                                                        margin: "0",
+                                                        padding: "0",
+                                                    }}
+                                                />
+                                            </Dropdown.Toggle>
+
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item>
+                                                    Hello {user?.name},
+                                                </Dropdown.Item>
+                                                <Dropdown.Item
+                                                    as={Link}
+                                                    to="/profile"
+                                                >
+                                                    Profile
+                                                </Dropdown.Item>
+                                                <Dropdown.Item
+                                                    as={Button}
+                                                    onClick={logout}
+                                                    style={{
+                                                        backgroundColor: "red",
+                                                        color: "white",
+                                                        fontWeight: "semi-bold",
+                                                    }}
+                                                >
+                                                    Log Out
+                                                </Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                        {/* <Dropdown>
+                                            <DropdownButton
+                                                as={Button}
+                                                drop="start"
+                                                className="outline-none bg-red"
+                                                title={user?.name}
+                                            ></DropdownButton>
+                                        </Dropdown> */}
                                     </div>
                                 ) : (
                                     <Button

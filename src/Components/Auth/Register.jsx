@@ -115,7 +115,7 @@ const Register = () => {
                                     Sign up to Access our Movie Collection
                                 </span>
                             </h1>
-                            <p className="mb-4 text-danger opacity-50 fw-semibold">
+                            <p className="mb-4 text-danger opacity-75 fw-semibold">
                                 By signing up, you&apos;ll be able to explore
                                 thousands of movies and receive personalized
                                 recommendations tailored to your preferences.
