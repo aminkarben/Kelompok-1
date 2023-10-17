@@ -117,6 +117,7 @@ const NavbarComponent = () => {
                                                     <Dropdown.Item>
                                                         Hello {user?.name},
                                                     </Dropdown.Item>
+                                                    <Dropdown.Divider />
                                                     <Dropdown.Item
                                                         as={Link}
                                                         to="/profile"
@@ -131,8 +132,7 @@ const NavbarComponent = () => {
                                                             backgroundColor:
                                                                 "red",
                                                             color: "white",
-                                                            fontWeight:
-                                                                "semi-bold",
+                                                            fontWeight: "500",
                                                         }}
                                                     >
                                                         Log Out
@@ -181,9 +181,13 @@ const NavbarComponent = () => {
                                             </Dropdown.Toggle>
 
                                             <Dropdown.Menu>
-                                                <Dropdown.Item>
+                                                <Dropdown.Item
+                                                    disabled
+                                                    className="text-black"
+                                                >
                                                     Hello {user?.name},
                                                 </Dropdown.Item>
+                                                <Dropdown.Divider />
                                                 <Dropdown.Item
                                                     as={Link}
                                                     to="/profile"
@@ -196,21 +200,13 @@ const NavbarComponent = () => {
                                                     style={{
                                                         backgroundColor: "red",
                                                         color: "white",
-                                                        fontWeight: "semi-bold",
+                                                        fontWeight: "500",
                                                     }}
                                                 >
                                                     Log Out
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
-                                        {/* <Dropdown>
-                                            <DropdownButton
-                                                as={Button}
-                                                drop="start"
-                                                className="outline-none bg-red"
-                                                title={user?.name}
-                                            ></DropdownButton>
-                                        </Dropdown> */}
                                     </div>
                                 ) : (
                                     <Button
