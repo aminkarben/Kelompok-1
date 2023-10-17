@@ -14,7 +14,7 @@ const Details = () => {
     const [selectId, setSelectId] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
-    const languageValue = searchParams.get("language") || "en-US";
+    const languageValue = searchParams.get("language");
 
     useEffect(() => {
         const getDetailMovie = async () => {
