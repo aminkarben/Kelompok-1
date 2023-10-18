@@ -37,7 +37,7 @@ const Details = () => {
       }
     };
     getDetailMovie();
-  }, [id, languageValue]);
+  }, []);
   const handleShowModal = (movieId) => {
     setSelectId(movieId);
     setShowModal(true);

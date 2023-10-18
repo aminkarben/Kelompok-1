@@ -45,12 +45,12 @@ function GoogleLogin({ buttonText }) {
 
   return (
     <Button
-      className="bg-white text-black fw-semibold"
+      className="bg-white text-black fw-semibold w-100"
       onClick={() => loginWithGoogle()}
     >
       <span>
-        <img src="/google.svg" style={{ width: "20px", height: "20px" }} />
-      </span>
+        <img src="/google.svg" style={{ width: "30px" }} alt="google_logo" />
+      </span>{" "}
       {buttonText}
     </Button>
   );
