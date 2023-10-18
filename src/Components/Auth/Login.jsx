@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import GoogleLogin from "../GoogleLogin";
+import FacebookLogin from "../FacebookLogin";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -193,38 +194,17 @@ const Login = () => {
                           <hr />
                         </div>
                       </div>
-
-                    {/* testing, nanti aku ubah lagi */}
-                      {/* <button
-                        type="button"
-                        className="btn btn-link btn-floating mx-1"
-                      >
-                        <img
-                          src="/google.svg"
-                          style={{
-                            width: "30px",
-                            height: "30px",
-                          }}
-                        />
-                      </button> */}
-
                       <button
                         type="button"
                         className="btn btn-link btn-floating mx-1"
                       >
-                        <GoogleLogin buttonText={"Login with Google"} />
+                        <GoogleLogin buttonText={"Login With Google"} />
                       </button>
                       <button
                         type="button"
                         className="btn btn-link btn-floating mx-1"
                       >
-                        <img
-                          src="/facebook.svg"
-                          style={{
-                            width: "30px",
-                            height: "30px",
-                          }}
-                        />
+                        <FacebookLogin buttonText={"Login with Facebook"} />
                       </button>
                     </div>
                   </form>
