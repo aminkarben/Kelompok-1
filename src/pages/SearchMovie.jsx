@@ -83,7 +83,7 @@ const SearchMovies = () => {
                         className="card text-light bg-dark responsive-image"
                     >
                         <Link
-                            to={`/details/${movie.id}?language=en-US`}
+                            to={`/details/${movie.id}`}
                             className="text-decoration-none text-light"
                         >
                             <LazyLoadImage

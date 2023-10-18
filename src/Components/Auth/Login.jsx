@@ -1,15 +1,29 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import GoogleLogin from "../GoogleLogin";
-import FacebookLogin from "../FacebookLogin";
+import swal from "sweetalert2";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({
+    isError: false,
+    message: null,
+  });
 
   const login = async (event) => {
     event.preventDefault();
+
+    const customError = (error) => {
+      swal.fire({
+        title: "Failed!",
+        text: `${error}`,
+        icon: "error",
+        confirmButtonText: "OK",
+        color: "red",
+      });
+    };
 
     try {
       const response = await axios.post(
@@ -27,101 +41,25 @@ const Login = () => {
       window.location.replace("/");
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        alert(error?.response?.data?.message);
+        setErrors({
+          ...errors,
+          isError: true,
+          message: error?.response?.data?.message || error?.message,
+        });
+        customError(error?.response?.data?.message || error?.message);
         return;
       }
+      setErrors({
+        ...errors,
+        isError: true,
+        message: error?.message,
+      });
+      customError(error?.message);
     }
   };
 
   return (
     <div className="d-flex min-vh-100 justify-content-center align-items-center text-black">
-      {/* <Container className="p-4 w-100">
-                <Card>
-                    <Card.Body>
-                        <h1>Sign in to your account</h1>
-                        <Form onSubmit={login}>
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicEmail"
-                            >
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    placeholder="Enter email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </Form.Group>
-
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicPassword"
-                            >
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Password"
-                                    value={password}
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                />
-                            </Form.Group>
-                            <Button
-                                className="w-100"
-                                variant="danger"
-                                type="submit"
-                            >
-                                Login
-                            </Button>
-                        </Form>
-
-                        <Link
-                            to="/register"
-                            className="fw-semibold text-decoration-none"
-                        >
-                            <small>belum punya akun?</small>
-                        </Link>
-
-                        <div className="row">
-                            <div className="col">
-                                <hr />
-                            </div>
-                            <div className="col-auto">OR</div>
-                            <div className="col">
-                                <hr />
-                            </div>
-                        </div>
-
-                        
-                        <div className="d-flex gap-3 justify-content-evenly flex-wrap">
-                            <Button className="bg-white text-black fs-6 fw-semibold">
-                                <span>
-                                    <img
-                                        src="/google.svg"
-                                        style={{
-                                            width: "25px",
-                                            height: "25px",
-                                        }}
-                                    />
-                                </span>
-                            </Button>
-                            <Button className="bg-white text-black fs-6 fw-semibold">
-                                <span>
-                                    <img
-                                        src="/facebook.svg"
-                                        style={{
-                                            width: "25px",
-                                            height: "25px",
-                                        }}
-                                    />
-                                </span>
-                            </Button>
-                        </div>
-                    </Card.Body>
-                </Card>
-            </Container> */}
-
       <div
         className="mt-5 px-4 py-5 px-md-5 text-center text-lg-start rounded mx-2"
         style={{ backgroundColor: "hsl(0, 0%, 96%)" }}
@@ -135,7 +73,7 @@ const Login = () => {
                   Log in to Access our Movie Collection
                 </span>
               </h1>
-              <p className="mb-4 text-danger opacity-50 fw-semibold">
+              <p className="mb-4 text-danger opacity-75 fw-semibold">
                 If you already have an account, please enter your login
                 information to continue.
               </p>
@@ -173,7 +111,6 @@ const Login = () => {
                         Sign in
                       </button>
                     </div>
-
                     <p className="mb-3 fw-bold">
                       Don&apos;t have an account ?{" "}
                       <Link
@@ -183,7 +120,6 @@ const Login = () => {
                         Sign Up
                       </Link>
                     </p>
-
                     <div className="text-center">
                       <div className="row">
                         <div className="col">
@@ -194,18 +130,8 @@ const Login = () => {
                           <hr />
                         </div>
                       </div>
-                      <button
-                        type="button"
-                        className="btn btn-link btn-floating mx-1"
-                      >
-                        <GoogleLogin buttonText={"Login With Google"} />
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-link btn-floating mx-1"
-                      >
-                        <FacebookLogin buttonText={"Login with Facebook"} />
-                      </button>
+
+                      <GoogleLogin buttonText={""} />
                     </div>
                   </form>
                 </div>

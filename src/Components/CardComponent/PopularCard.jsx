@@ -111,12 +111,6 @@ const PopularCard = ({ showAllMovies }) => {
                                         <h5 className="card-title m-0 fs-5">
                                             {movie?.title}
                                         </h5>
-                                        <p className="card-text">
-                                            <small>
-                                                Release Date :{" "}
-                                                {movie?.release_date}
-                                            </small>
-                                        </p>
                                     </div>
                                 </div>
                             </Link>
