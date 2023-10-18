@@ -13,7 +13,7 @@ function GoogleLogin({ buttonText }) {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: `${import.meta.env.VITE_API_URL}/api/v1/auth/google`,
+        url: `${import.meta.env.VITE_VERCEL_AUTH}/google`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -44,7 +44,13 @@ function GoogleLogin({ buttonText }) {
   });
 
   return (
-    <Button variant="primary" onClick={() => loginWithGoogle()}>
+    <Button
+      className="bg-white text-black fw-semibold"
+      onClick={() => loginWithGoogle()}
+    >
+      <span>
+        <img src="/google.svg" style={{ width: "20px", height: "20px" }} />
+      </span>
       {buttonText}
     </Button>
   );
@@ -53,5 +59,4 @@ function GoogleLogin({ buttonText }) {
 GoogleLogin.propTypes = {
   buttonText: PropTypes.string,
 };
-
 export default GoogleLogin;

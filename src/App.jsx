@@ -9,55 +9,59 @@ import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./Components/Auth/ProtectedRoute";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 function App() {
   return (
-    <BrowserRouter>
-      <NavbarComponent />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/details/:id"
-          element={
-            <ProtectedRoute>
-              <Details />
-            </ProtectedRoute>
-          }
-        />
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}>
+      <BrowserRouter>
+        <NavbarComponent />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/details/:id"
+            element={
+              <ProtectedRoute>
+                <Details />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/search"
-          element={
-            <ProtectedRoute>
-              <SearchMovie />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/search"
+            element={
+              <ProtectedRoute>
+                <SearchMovie />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* authentication */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+          {/* authentication */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-        {/* handle error path */}
-        <Route path="*" element={<Error />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+          {/* handle error path */}
+          <Route path="*" element={<Error />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+      `
+    </GoogleOAuthProvider>
   );
 }
 
