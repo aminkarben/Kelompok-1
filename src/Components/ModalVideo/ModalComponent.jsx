@@ -25,7 +25,6 @@ const ModalComponent = ({ movieId, onClose, show }) => {
           }
         );
         const { data } = response.data;
-        console.log(data);
 
         if (data?.videos) {
           const trailer = data?.videos.find(

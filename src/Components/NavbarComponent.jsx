@@ -83,7 +83,7 @@ const NavbarComponent = () => {
           <>
             <Navbar.Toggle
               aria-controls="navbarScroll"
-              className="bg-danger text-white"
+              className="bg-danger text-danger"
             />
             <Navbar.Collapse id="navbarScroll">
               <Form
