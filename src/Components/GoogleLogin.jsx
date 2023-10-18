@@ -50,7 +50,7 @@ function GoogleLogin({ buttonText }) {
     >
       <span>
         <img src="/google.svg" style={{ width: "20px", height: "20px" }} />
-      </span>{" "}
+      </span>
       {buttonText}
     </Button>
   );
@@ -59,5 +59,4 @@ function GoogleLogin({ buttonText }) {
 GoogleLogin.propTypes = {
   buttonText: PropTypes.string,
 };
-
 export default GoogleLogin;

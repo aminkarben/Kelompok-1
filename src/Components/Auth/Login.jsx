@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert2";
-import { GoogleLogin } from "@react-oauth/google";
+import GoogleLogin from "../GoogleLogin";
+import FacebookLogin from "../FacebookLogin";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -131,7 +132,14 @@ const Login = () => {
                         </div>
                       </div>
 
-                      <GoogleLogin buttonText={""} />
+                      <button
+                        type="button"
+                        className="btn btn-link btn-floating mx-1"
+                      >
+                        <GoogleLogin buttonText={"Login with Google"} />
+                      </button>
+
+                      <FacebookLogin buttonText={"Login with Facebook"} />
                     </div>
                   </form>
                 </div>
