@@ -44,7 +44,13 @@ function GoogleLogin({ buttonText }) {
   });
 
   return (
-    <Button variant="primary" onClick={() => loginWithGoogle()}>
+    <Button
+      className="bg-white text-black fw-semibold"
+      onClick={() => loginWithGoogle()}
+    >
+      <span>
+        <img src="/google.svg" style={{ width: "20px", height: "20px" }} />
+      </span>{" "}
       {buttonText}
     </Button>
   );
