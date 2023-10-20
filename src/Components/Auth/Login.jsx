@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert2";
-import { Button } from "react-bootstrap";
+// import { Button } from "react-bootstrap";
 import GoogleLogin from "../GoogleLogin";
 
 const Login = () => {
@@ -150,7 +150,7 @@ const Login = () => {
                                                     }
                                                 />
 
-                                                <Button className="bg-white text-black fw-semibold w-100">
+{/*                                                 <Button className="bg-white text-black fw-semibold w-100">
                                                     <span>
                                                         <img
                                                             src="/facebook.svg"
@@ -163,7 +163,7 @@ const Login = () => {
                                                         />
                                                     </span>
                                                     Login With Facebook
-                                                </Button>
+                                                </Button> */}
                                             </div>
                                         </div>
                                     </form>
