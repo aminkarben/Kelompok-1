@@ -45,7 +45,7 @@ function GoogleLogin({ buttonText }) {
 
   return (
     <Button
-      className="bg-white text-black fw-semibold w-100"
+      className="bg-white border text-black fw-semibold w-100"
       onClick={() => loginWithGoogle()}
     >
       <span>
