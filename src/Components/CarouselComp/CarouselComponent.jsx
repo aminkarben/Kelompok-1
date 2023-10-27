@@ -1,60 +1,20 @@
 import { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import axios from "axios";
 import "./carousel.css";
 import ModalComponent from "../ModalVideo/ModalComponent";
+import { useDispatch, useSelector } from "react-redux";
+import getPopularData from "../../redux/actions/popularMovieActions";
 
 const CarouselComponent = () => {
-  const [movies, setMovies] = useState([]);
   const [selectId, setSelectId] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [errors, setErrors] = useState({
-    isError: false,
-    message: null,
-  });
+
+  const dispatch = useDispatch();
+  const carouselMovie = useSelector((state) => state.popular.popularMovies);
 
   useEffect(() => {
-    const getPlayingMovies = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
-          `${import.meta.env.VITE_VERCEL_API_URL}/popular`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const { data } = response.data;
-        setMovies(data);
-        setErrors({ ...errors, isError: false });
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          setErrors({
-            ...errors,
-            isError: true,
-            message: error?.response?.data?.message || error?.message,
-          });
-          return;
-        }
-
-        setErrors({
-          ...errors,
-          isError: true,
-          message: error?.message,
-        });
-      }
-    };
-    getPlayingMovies();
-  }, []);
-
-  if (errors.isError) {
-    return <h1 className="text-white text-center mt-5">{errors.message}</h1>;
-  }
-
-  if (movies.length === 0) {
-    return <h1 className="text-white mt-5 ms-5">Loading....</h1>;
-  }
+    dispatch(getPopularData());
+  }, [dispatch]);
 
   const truncateText = (text, maxLenght) => {
     return text.length > maxLenght
@@ -79,7 +39,7 @@ const CarouselComponent = () => {
       data-bs-ride="carousel"
     >
       <div className="carousel-inner text-center">
-        {movies.map((movie, index) => (
+        {carouselMovie.map((movie, index) => (
           <div
             className={`carousel-item ${index === 0 ? "active" : ""} `}
             data-bs-interval="5000"

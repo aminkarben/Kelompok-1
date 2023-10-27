@@ -1,58 +1,19 @@
-import axios from "axios";
+// import axios from "axios";
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "./popularcard.css";
+import { useDispatch, useSelector } from "react-redux";
+import getPopularData from "../../redux/actions/popularMovieActions";
 
 const PopularCard = ({ showAllMovies }) => {
-  const [popularMovies, setPopularMovies] = useState([]);
-
-  const [errors, setErrors] = useState({
-    isError: false,
-    message: null,
-  });
+  const dispatch = useDispatch();
+  const popularMovies = useSelector((state) => state.popular.popularMovies);
 
   useEffect(() => {
-    const getPopularMovies = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
-          `${import.meta.env.VITE_VERCEL_API_URL}/popular`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const { data } = response.data;
-        setPopularMovies(data);
-        setErrors({ ...errors, isError: false });
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          setErrors({
-            ...errors,
-            isError: true,
-            message: error?.response?.data?.message || error?.message,
-          });
-          return;
-        }
-
-        setErrors({
-          ...errors,
-          isError: true,
-          message: error?.message,
-        });
-      }
-    };
-    getPopularMovies();
-  }, []);
-
-  if (errors.isError) {
-    return (
-      <h1 className="text-danger text-center fw-bold ">{errors.message}</h1>
-    );
-  }
+    dispatch(getPopularData());
+  }, [dispatch]);
 
   if (popularMovies.length === 0) {
     return <h1 className="text-white mt-5 ms-5">Loading....</h1>;
