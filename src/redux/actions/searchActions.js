@@ -1,5 +1,9 @@
 import axios from "axios";
-import { setSearchedMovies, setTotalPages } from "../reducers/searchReducers";
+import {
+    setSearchedMovies,
+    setTotalPages,
+    setTotalResult,
+} from "../reducers/searchReducers";
 import { isAxiosError } from "axios";
 
 export const getSearchData =
@@ -19,8 +23,11 @@ export const getSearchData =
                     }
                 );
 
-                const { data, total_pages } = response.data;
+
+                const { data, total_pages, total_results } = response.data;
+
                 dispatch(setTotalPages(total_pages));
+                dispatch(setTotalResult(total_results));
                 dispatch(setSearchedMovies(data));
             }
         } catch (error) {
