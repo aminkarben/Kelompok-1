@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import "../Components/CardComponent/popularcard.css";
 import { useDispatch, useSelector } from "react-redux";
+import { Spinner } from "react-bootstrap";
 import getSearchData from "../redux/actions/searchActions";
+import "../Components/CardComponent/popularcard.css";
+import { setSearchedMovies } from "../redux/reducers/searchReducers";
 const SearchMovies = () => {
     const dispatch = useDispatch();
     const searchedMovies = useSelector((state) => state.search.searchedMovies);
@@ -11,21 +13,31 @@ const SearchMovies = () => {
 
     const [searchParams] = useSearchParams();
     const pageValue = parseInt(searchParams.get("page"), 10) || 1;
-    const queryValue = searchParams.get("query") || "wait";
-  
+    const queryValue = searchParams.get("query");
+
     useEffect(() => {
         dispatch(getSearchData(queryValue, pageValue));
+        return () => {
+            dispatch(setSearchedMovies([]));
+        };
     }, [dispatch, queryValue, pageValue]);
 
     const nextPage = pageValue + 1;
     const prevPage = pageValue - 1;
 
     if (searchedMovies.length === 0) {
-        return <h1 className="mt-5 ms-5 text-white">Loading....</h1>;
-    }
-
-    if (queryValue === "wait") {
-        return <h1 className="mt-5 ms-5 text-white">Waiting For Data...</h1>;
+        return (
+            <>
+                <div className="d-flex flex-column align-items-center justify-content-center mt-5">
+                    <Spinner
+                        animation="border"
+                        role="status"
+                        variant="light"
+                    ></Spinner>
+                    <h1 className="text-white">Loading...</h1>
+                </div>
+            </>
+        );
     }
 
     return (

@@ -19,8 +19,7 @@ export const getSearchData =
                     }
                 );
 
-                const { data } = response.data;
-                const { total_pages } = response.data;
+                const { data, total_pages } = response.data;
                 dispatch(setTotalPages(total_pages));
                 dispatch(setSearchedMovies(data));
             }
