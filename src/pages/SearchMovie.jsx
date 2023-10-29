@@ -56,6 +56,7 @@ const SearchMovies = () => {
             </div>
         );
 
+
     }
 
     return (

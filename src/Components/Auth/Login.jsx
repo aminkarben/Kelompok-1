@@ -152,7 +152,6 @@ const Login = () => {
                                                     }
                                                 />
 
-
                                                 {/*<Button className="bg-white text-black fw-semibold w-100">
 
                                                     <span>
@@ -169,7 +168,6 @@ const Login = () => {
                                                     Login With Facebook
 
                                                 </Button> */}
-
                                             </div>
                                         </div>
                                     </form>

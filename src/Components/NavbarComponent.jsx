@@ -45,6 +45,7 @@ const NavbarComponent = () => {
 
     const handleSearch = (e) => {
         e.preventDefault();
+
         const searchQuery = e.target.search.value;
 
         //validate if search query is empty
@@ -87,7 +88,6 @@ const NavbarComponent = () => {
                     </Link>
                 </Navbar.Brand>
 
-
                 {user && (
                     <>
                         <Navbar.Toggle
@@ -115,7 +115,6 @@ const NavbarComponent = () => {
                                                         }}
                                                     />
                                                 </Dropdown.Toggle>
-
 
                                                 <Dropdown.Menu
                                                     id="dropdown-button-drop-start"
