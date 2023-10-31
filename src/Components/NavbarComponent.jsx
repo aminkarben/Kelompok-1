@@ -8,40 +8,22 @@ import {
     Dropdown,
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 import "./navbar.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setQueryValue } from "../redux/reducers/searchReducers";
+import { logout } from "../redux/actions/authAction";
+import { getUser } from "../redux/actions/profileAction";
 
 const NavbarComponent = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [user, setUser] = useState(null);
+
+    const user = useSelector((state) => state.profile.users);
 
     useEffect(() => {
-        const getMe = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                const response = await axios.get(
-                    `${import.meta.env.VITE_VERCEL_AUTH}/me`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
-                const { data } = response.data;
-                setUser(data);
-            } catch (error) {
-                if (axios.isAxiosError(error)) {
-                    console.log(error?.response?.data?.message);
-                    return;
-                }
-            }
-        };
-        getMe();
-    }, []);
+        dispatch(getUser);
+    }, [dispatch]);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -60,9 +42,8 @@ const NavbarComponent = () => {
         navigate(searchUrl);
     };
 
-    const logout = () => {
-        localStorage.removeItem("token");
-        window.location.replace("/login");
+    const onLogout = () => {
+        dispatch(logout(navigate));
     };
 
     return (
@@ -132,7 +113,7 @@ const NavbarComponent = () => {
                                                     </Dropdown.Item>
                                                     <Dropdown.Item
                                                         as={Button}
-                                                        onClick={logout}
+                                                        onClick={onLogout}
                                                         variant="danger"
                                                         style={{
                                                             backgroundColor:
@@ -202,7 +183,7 @@ const NavbarComponent = () => {
                                                 </Dropdown.Item>
                                                 <Dropdown.Item
                                                     as={Button}
-                                                    onClick={logout}
+                                                    onClick={onLogout}
                                                     style={{
                                                         backgroundColor: "red",
                                                         color: "white",

@@ -1,108 +1,44 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { register } from "../../redux/actions/authAction";
 import swal from "sweetalert2";
+import GoogleLogin from "../GoogleLogin";
 
 const Register = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [errors, setErrors] = useState({
-        isError: false,
-        message: null,
-    });
-
-    const token = localStorage.getItem("token");
-
-    if (token) {
-        window.location.replace("/");
-    }
-
     const name = `${firstName} ${lastName}`;
 
     const registerAccount = async (event) => {
         event.preventDefault();
 
-        const alertSuccess = () => {
+        if (!firstName.trim() || !lastName.trim()) {
             swal.fire({
-                title: "Success!",
-                text: "Registrasi Berhasil Silahkan Login!",
-                icon: "success",
-                confirmButtonText: "OK",
-            });
-        };
-
-        const alertFail = () => {
-            swal.fire({
-                title: "Failed!",
-                text: "Registrasi Gagal Silahkan Coba Lagi!",
+                title: "Error!",
+                text: "Nama depan dan belakang harus diisi.",
                 icon: "error",
                 confirmButtonText: "OK",
             });
-        };
+            return;
+        }
 
-        const validatePassword = () => {
+        if (password !== confirmPassword) {
             swal.fire({
                 title: "Error!",
                 text: "Password dan Confirm Password harus sama.",
                 icon: "error",
                 confirmButtonText: "OK",
             });
-        };
-
-        const customError = (error) => {
-            swal.fire({
-                title: "Failed!",
-                text: `${error}`,
-                icon: "error",
-                confirmButtonText: "OK",
-            });
-        };
-
-        try {
-            if (password !== confirmPassword) {
-                validatePassword();
-                return;
-            }
-
-            const response = await axios.post(
-                `${import.meta.env.VITE_VERCEL_AUTH}/register`,
-                {
-                    email,
-                    name,
-                    password,
-                }
-            );
-
-            const { data } = response.data;
-            const { token } = data;
-
-            // Periksa apakah registrasi berhasil
-            if (token) {
-                alertSuccess();
-                window.location.replace("/login");
-            } else {
-                alertFail();
-            }
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                setErrors({
-                    ...errors,
-                    isError: true,
-                    message: error?.response?.data?.message || error?.message,
-                });
-                customError(error?.response?.data?.message || error?.message);
-                return;
-            }
-
-            setErrors({
-                ...errors,
-                isError: true,
-                message: error?.message,
-            });
-            customError(error?.message);
+            return;
+        } else {
+            dispatch(register(email, name, password, navigate));
         }
     };
 
@@ -223,6 +159,28 @@ const Register = () => {
                                             >
                                                 Sign In
                                             </Link>
+                                        </div>
+
+                                        <div className="text-center">
+                                            <div className="row">
+                                                <div className="col">
+                                                    <hr />
+                                                </div>
+                                                <div className="col-auto">
+                                                    or
+                                                </div>
+                                                <div className="col">
+                                                    <hr />
+                                                </div>
+                                            </div>
+
+                                            <div className="d-flex gap-3 justify-content-evenly flex-wrap">
+                                                <GoogleLogin
+                                                    buttonText={
+                                                        "Login with Google"
+                                                    }
+                                                />
+                                            </div>
                                         </div>
                                     </form>
                                 </div>

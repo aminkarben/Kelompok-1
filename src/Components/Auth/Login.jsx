@@ -1,70 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import swal from "sweetalert2";
-// import { Button } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import GoogleLogin from "../GoogleLogin";
+import { login } from "../../redux/actions/authAction";
+import { getUser } from "../../redux/actions/profileAction";
 
 const Login = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState({
-        isError: false,
-        message: null,
-    });
 
-
-    const token = localStorage.getItem("token");
-
-    if (token) {
-        window.location.replace("/");
-    }
-    const login = async (event) => {
+    const onLogin = async (event) => {
         event.preventDefault();
-
-        const customError = (error) => {
-            swal.fire({
-                title: "Failed!",
-                text: `${error}`,
-                icon: "error",
-                confirmButtonText: "OK",
-                color: "red",
-            });
-        };
-
-        try {
-            const response = await axios.post(
-                `${import.meta.env.VITE_VERCEL_AUTH}/login`,
-                {
-                    email,
-                    password,
-                }
-            );
-            const { data } = response.data;
-            const { token } = data;
-
-            localStorage.setItem("token", token);
-
-            window.location.replace("/");
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                setErrors({
-                    ...errors,
-                    isError: true,
-                    message: error?.response?.data?.message || error?.message,
-                });
-                customError(error?.response?.data?.message || error?.message);
-                return;
-            }
-            setErrors({
-                ...errors,
-                isError: true,
-                message: error?.message,
-            });
-            customError(error?.message);
-        }
+        dispatch(login(email, password, navigate));
+        dispatch(getUser());
     };
-
 
     return (
         <div className="d-flex min-vh-100 justify-content-center align-items-center text-black">
@@ -90,7 +41,7 @@ const Login = () => {
                         <div className="col-lg-6 mb-5 mb-lg-0">
                             <div className="card">
                                 <div className="card-body py-5 px-md-5">
-                                    <form onSubmit={login}>
+                                    <form onSubmit={onLogin}>
                                         <div className="form-outline mb-4">
                                             <input
                                                 type="email"
@@ -152,22 +103,6 @@ const Login = () => {
                                                     }
                                                 />
 
-                                                {/*<Button className="bg-white text-black fw-semibold w-100">
-
-                                                    <span>
-                                                        <img
-                                                            src="/facebook.svg"
-                                                            style={{
-                                                                width: "30px",
-                                                                marginRight:
-                                                                    "5px",
-                                                            }}
-                                                            alt="facebook_logo"
-                                                        />
-                                                    </span>
-                                                    Login With Facebook
-
-                                                </Button> */}
                                             </div>
                                         </div>
                                     </form>

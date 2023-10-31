@@ -9,7 +9,7 @@ import { isAxiosError } from "axios";
 export const getSearchData =
     (queryValue, pageValue) => async (dispatch, getState) => {
         try {
-            const token = getState().popular.token;
+            const { token } = getState().auth;
 
             if (queryValue) {
                 const response = await axios.get(
@@ -23,7 +23,6 @@ export const getSearchData =
                     }
                 );
 
-
                 const { data, total_pages, total_results } = response.data;
 
                 dispatch(setTotalPages(total_pages));
@@ -31,11 +30,10 @@ export const getSearchData =
                 dispatch(setSearchedMovies(data));
             }
         } catch (error) {
-            if (isAxiosError(error)) {
-                alert(error?.response?.data?.message);
+            if (isAxiosError(error) && error.response) {
+                console.error(error?.response?.data?.message);
                 return;
             }
-            alert(error?.message);
         }
     };
 

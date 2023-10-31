@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    token: localStorage.getItem("token") || null,
     totalResult: null,
     popularMovies: [],
 };

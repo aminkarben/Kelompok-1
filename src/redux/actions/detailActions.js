@@ -1,25 +1,22 @@
 import axios from "axios";
-import {
-    setPopularMovies,
-    setTotalResult,
-} from "../reducers/popularMovieReducer";
+import { setDetailMovie } from "../reducers/detailReducers";
 import { isAxiosError } from "axios";
 
-export const getPopularData = () => async (dispatch, getState) => {
+export const getDetail = (id, languageValue) => async (dispatch, getState) => {
     try {
         const { token } = getState().auth;
-
         const response = await axios.get(
-            `${import.meta.env.VITE_VERCEL_API_URL}/popular`,
+            `${
+                import.meta.env.VITE_VERCEL_API_URL
+            }/${id}?language=${languageValue}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             }
         );
-        const { data, total_results } = response.data;
-        dispatch(setTotalResult(total_results));
-        dispatch(setPopularMovies(data));
+        const { data } = response.data;
+        dispatch(setDetailMovie(data));
     } catch (error) {
         if (isAxiosError(error) && error.response) {
             console.error(error?.response?.data?.message);
@@ -27,5 +24,3 @@ export const getPopularData = () => async (dispatch, getState) => {
         }
     }
 };
-
-export default getPopularData;
