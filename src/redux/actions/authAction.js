@@ -141,3 +141,29 @@ export const logout = (navigate) => (dispatch) => {
     dispatch(setUser(null));
     navigate("/login");
 };
+
+export const protect =
+    (navigate, navigatePathSuccess, navigatePathError) =>
+    async (dispatch, getState) => {
+        try {
+            const { token } = getState().auth;
+
+            if (!token) return navigate("/login");
+
+            axios.get(`${import.meta.env.VITE_VERCEL_AUTH}/me`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (navigatePathSuccess) navigate(navigatePathSuccess);
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                if (error.response.status === 401) {
+                    dispatch(logout());
+                    if (navigatePathError) navigate(navigatePathError);
+                    return;
+                }
+            }
+        }
+    };

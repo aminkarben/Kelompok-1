@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import GoogleLogin from "../GoogleLogin";
 import { login } from "../../redux/actions/authAction";
 import { getUser } from "../../redux/actions/profileAction";
@@ -10,6 +10,15 @@ const Login = () => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const { token } = useSelector((state) => state.auth);
+
+    useEffect(() => {
+        if (token) {
+            navigate("/");
+        }
+    }, [token, navigate]);
+
 
     const onLogin = async (event) => {
         event.preventDefault();
