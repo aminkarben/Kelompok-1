@@ -36,7 +36,7 @@ const SearchMovies = () => {
             variant="light"
             className="mt-5"
           ></Spinner>
-          <h1 className="text-white">Loading...</h1>
+          <h1 className="text-white">Searching for {queryValue}...</h1>
         </div>
       </>
     );
