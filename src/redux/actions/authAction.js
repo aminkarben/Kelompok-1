@@ -90,18 +90,8 @@ export const login = (email, password, navigate) => async (dispatch) => {
     // Save our token and global state
     dispatch(setToken(token));
 
-    Swal.fire({
-      title: "Success",
-      text: "Login successful!",
-      icon: "success",
-      confirmButtonText: "OK",
-      color: "green",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Redirect to home
-        navigate("/");
-      }
-    });
+    // Redirect to home
+    navigate("/");
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       // Handle Axios error
